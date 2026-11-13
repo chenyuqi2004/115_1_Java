@@ -1,0 +1,37 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+left to right direction
+class Rover {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + Rover(energy : int, samples : int)
+  + execute(command : int) : String
+  + isStopped() : boolean
+  # spendEnergy(amount : int) : boolean
+  # addSamples(amount : int) : void
+  # countAction() : void
+}
+class HeavyRover {
+  + {static} DRILL_COST : int = 8
+  + {static} DRILL_YIELD : int = 3
+  - drillCount : int
+  + HeavyRover(energy : int, samples : int)
+  + getDrillCount() : int
+  + drill() : String
+}
+class Mission {
+  - rover : Rover
+}
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+note bottom of Rover
+部分視角：省略既有getter、狀態查詢及private行動
+三個protected方法為本週新增
+end note
+note bottom of Mission : 省略其他成員，不直接使用HeavyRover
+@enduml

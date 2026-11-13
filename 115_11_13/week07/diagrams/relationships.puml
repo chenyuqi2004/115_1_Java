@@ -1,0 +1,16 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+left to right direction
+class Rover
+class HeavyRover
+class Mission
+class MissionStep
+Rover <|-- HeavyRover : is-a
+Mission --> "1" Rover : has-a
+Mission --> "0..*" MissionStep : has-a
+note bottom of Mission : 任務使用車，任務本身不是車
+@enduml

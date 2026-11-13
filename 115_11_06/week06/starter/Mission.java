@@ -16,6 +16,18 @@ public class Mission {
     public void run(int[] script) {
         // TODO 1：逐筆執行。先檢查 isStopped；每讀一筆就保存行動後快照。
         // 指令 0 也先記錄，再把 returned 設為 true 並離開迴圈。
+        for (int i = 0; i < script.length; i++) {
+            if (rover.isStopped()) {
+                break;
+            }
+            int command = script[i];
+            String result = rover.execute(command);
+            history.add(new MissionStep(command, rover.getEnergy(), result));
+            if (command == 0) {
+                returned = true;
+                break;
+            }
+        }
     }
 
     // 優先順序由教師提供；同時成功與耗盡時，成功優先。
@@ -41,7 +53,13 @@ public class Mission {
 
     public int countOk() {
         // TODO 2：走訪 history，以 isSuccessful 計算 OK 筆數。
-        return 0;
+        int ok = 0;
+        for (MissionStep step : history) {
+            if (step.isSuccessful()) {
+                ok++;
+            }
+        }
+        return ok;
     }
 
     public int countRejected() {
@@ -54,6 +72,15 @@ public class Mission {
 
     public int lowestEnergy() {
         // TODO 3：空清單回傳 -1；非空先取第一筆，再以迴圈求最低能源。
-        return -1;
+        if (history.isEmpty()) {
+            return -1;
+        }
+        int lowest = history.get(0).getEnergy();
+        for (MissionStep step : history) {
+            if (step.getEnergy() < lowest) {
+                lowest = step.getEnergy();
+            }
+        }
+        return lowest;
     }
 }

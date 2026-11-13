@@ -1,0 +1,39 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+hide circle
+hide empty members
+left to right direction
+title 第五週 teacher：一個 MissionLog 做全部的事
+
+class MissionLog #FFE8D6 {
+  + {static} main(args : String[]) : void
+  ~ {static} runMission(script : int[], energy : int, samples : int) : void
+  ~ {static} countCommands(history : ArrayList<MissionStep>) : int[]
+  ~ {static} printReplay(history : ArrayList<MissionStep>) : void
+  ~ {static} printSummary(scriptLength : int, history : ArrayList<MissionStep>) : void
+  ~ {static} calculateBatteryPercent(energy : int) : double
+}
+class MissionStep #DFF3E3 {
+  - command : int
+  - energy : int
+  - result : String
+  + MissionStep(command : int, energy : int, result : String)
+  + getCommand() : int
+  + getEnergy() : int
+  + getResult() : String
+  + isSuccessful() : boolean
+}
+MissionLog ..> MissionStep : 區域變數 history\n建立並讀取
+note bottom of MissionLog
+  runMission 的區域變數：
+  energy、samples、actionCount、running、history
+  行動規則寫在 switch 裡
+end note
+@enduml

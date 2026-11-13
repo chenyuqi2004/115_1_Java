@@ -1,0 +1,56 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+hide circle
+hide empty members
+left to right direction
+title 第七週 teacher：Rover 開放擴充點，HeavyRover 繼承並新增 drill
+
+class Rover #FFE8D6 {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + Rover(energy : int, samples : int)
+  + isStopped() : boolean
+  + execute(command : int) : String
+  # spendEnergy(amount : int) : boolean
+  # addSamples(amount : int) : void
+  # countAction() : void
+  - explore() : String
+  - scan() : String
+  - charge() : String
+}
+class HeavyRover #DFF3E3 {
+  + {static} DRILL_COST : int = 8
+  + {static} DRILL_YIELD : int = 3
+  - drillCount : int
+  + HeavyRover(energy : int, samples : int)
+  + getDrillCount() : int
+  + drill() : String
+}
+class Mission #EEEEEE {
+  （與第六週相同）
+}
+class MissionStep #EEEEEE {
+  （與第五週相同）
+}
+class MissionLog #EEEEEE {
+  （與第六週相同）
+}
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+Mission --> "0..*" MissionStep : history
+MissionLog ..> Mission
+MissionLog ..> Rover
+MissionLog ..> MissionStep
+note bottom of HeavyRover
+  Mission 程式沒有用到 HeavyRover，
+  所以圖上沒有 Mission → HeavyRover
+end note
+@enduml

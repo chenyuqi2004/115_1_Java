@@ -1,0 +1,55 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+hide circle
+hide empty members
+left to right direction
+title 第六週 teacher：狀態交給 Rover，流程與歷史交給 Mission
+
+class MissionLog #FFE8D6 {
+  + {static} main(args : String[]) : void
+  ~ {static} runMission(script : int[], energy : int, samples : int) : void
+  ~ {static} printReplay(mission : Mission) : void
+  ~ {static} printSummary(scriptLength : int, mission : Mission) : void
+}
+class Mission #DFF3E3 {
+  - rover : Rover
+  - history : ArrayList<MissionStep>
+  - returned : boolean
+  + Mission(rover : Rover)
+  + run(script : int[]) : void
+  + getOutcome() : String
+  + getStepCount() : int
+  + getStep(index : int) : MissionStep
+  + countCommands() : int[]
+  + countOk() : int
+  + countRejected() : int
+  + lowestEnergy() : int
+}
+class Rover #DFF3E3 {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + Rover(energy : int, samples : int)
+  + getEnergy() / getSamples() / getActionCount()
+  + isSuccess() / isExhausted() / isStopped() : boolean
+  + execute(command : int) : String
+  - explore() : String
+  - scan() : String
+  - charge() : String
+}
+class MissionStep #EEEEEE {
+  （與第五週相同）
+}
+Mission --> "1" Rover : rover
+Mission --> "0..*" MissionStep : history
+MissionLog ..> Mission
+MissionLog ..> Rover
+MissionLog ..> MissionStep
+@enduml

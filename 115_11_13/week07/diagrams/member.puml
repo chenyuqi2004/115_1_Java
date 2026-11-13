@@ -1,0 +1,26 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+left to right direction
+class Member {
+  - name : String
+  - points : int
+  + Member(name : String)
+  + getName() : String
+  + getPoints() : int
+  + buy(price : int) : void
+  # addPoints(amount : int) : void
+}
+class VipMember {
+  - bonusCount : int
+  + VipMember(name : String)
+  + getBonusCount() : int
+  + claimBonus() : void
+}
+Member <|-- VipMember
+note bottom of Member : 父類別保管點數規則
+note bottom of VipMember : 只列本類別新增成員
+@enduml

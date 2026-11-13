@@ -1,0 +1,21 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+object "h : HeavyRover（同一個物件）" as h {
+  Rover宣告的energy = 20
+  Rover宣告的samples = 0
+  Rover宣告的actionCount = 0
+  --
+  AI子類別另宣告的energy = 12
+  AI子類別另宣告的samples = 3
+  AI子類別的drillCount = 1
+}
+note right of h
+模擬錯誤版第一次鑽探後
+getEnergy讀Rover宣告的那份
+drill更新子類別另宣告的那份
+end note
+@enduml

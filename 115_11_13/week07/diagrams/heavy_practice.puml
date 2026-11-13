@@ -1,0 +1,27 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+left to right direction
+class Rover {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + Rover(energy : int, samples : int)
+  + execute(command : int) : String
+  + isStopped() : boolean
+  ' 補三個本週新增的protected方法
+}
+class HeavyRover {
+  ' 補常數、自己的欄位、建構子與兩個方法
+}
+class Mission {
+  - rover : Rover
+}
+Mission --> "1" Rover : rover
+' 補繼承線，三角形指向父類別
+note bottom of Rover : 部分視角：省略既有getter、狀態查詢及private行動
+note bottom of Mission : 省略其他成員
+@enduml

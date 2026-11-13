@@ -1,0 +1,21 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 18
+hide circle
+left to right direction
+class Rover {
+  + Rover(energy : int, samples : int)
+  + isStopped() : boolean
+}
+class CargoRover {
+  - cargo : int
+  + CargoRover(energy : int, samples : int)
+  + getCargo() : int
+  + load(amount : int) : String
+}
+Rover <|-- CargoRover
+note bottom of Rover : 省略本題不新增的既有成員
+note bottom of CargoRover : 貨物容量3，貨物不是科學樣本
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 20
+skinparam backgroundColor #FBFCFE
+hide circle
+left to right direction
+
+class Member {
+  - name : String
+  - points : int
+  + describe() : String
+}
+class VipMember {
+  - bonusCount : int
+  + describe() : String
+  + claimBonus() : void
+}
+Member <|-- VipMember
+note bottom of VipMember
+describe覆寫父方法
+部分視角：省略建構子與其他方法
+end note
+@enduml

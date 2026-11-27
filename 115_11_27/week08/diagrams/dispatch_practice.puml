@@ -1,0 +1,37 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 20
+skinparam backgroundColor #FBFCFE
+hide circle
+left to right direction
+
+class Rover {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + execute(command : int) : String
+  - explore() : String
+  ' TODO F1：補探索產量方法
+}
+class HeavyRover {
+  + drill() : String
+  ' TODO F1：補探索產量方法
+  ' TODO F1：補D6覆寫的指令入口
+}
+class Mission {
+  - rover : Rover
+  + run(script : int[]) : void
+}
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+note bottom of HeavyRover
+TODO F1：補正確產量方法、D6的指令入口與覆寫註記
+保留Rover的private explore
+end note
+note bottom of Mission
+部分視角：省略其他成員及MissionStep
+Mission不增加HeavyRover型態欄位
+end note
+@enduml

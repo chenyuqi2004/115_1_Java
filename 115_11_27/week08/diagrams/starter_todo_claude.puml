@@ -1,0 +1,52 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+skinparam backgroundColor #FFFFFF
+hide circle
+hide empty members
+title 第八週 starter：四個 TODO 在哪裡（紅字＝要由你完成）
+
+legend top right
+  <back:#FFE8D6>　有 TODO 的檔案　</back>  <back:#F4F4F4>　已提供、不用改　</back>
+endlegend
+
+class Rover #FFE8D6 {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + execute(command : int) : String
+  # exploreYield() : int  {已提供，回 2}
+  - explore() : String
+  --
+  <color:#C0392B><b>TODO 1</b>：explore 改用 exploreYield() 加樣本</color>
+}
+class HeavyRover #FFE8D6 {
+  - drillCount : int
+  + drill() : String
+  --
+  <color:#C0392B><b>TODO 2</b>：自己寫 @Override 產量方法，回 3</color>
+  <color:#C0392B><b>TODO 4</b>：覆寫 execute，4 交給 drill，其他交回 super</color>
+}
+class CompareMissions #FFE8D6 {
+  + {static} main(args : String[]) : void
+  ~ {static} show(label, rover, mission, scriptLength) : void
+  --
+  <color:#C0392B><b>TODO 3</b>：兩台新車、兩個新 Mission、各 show 一次</color>
+}
+class Mission #F4F4F4 {
+  - rover : Rover
+  + run(script : int[]) : void
+}
+class "MissionLog / MissionStep / HeavyRoverTry / DrillMissionTry" as Given #F4F4F4
+
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+CompareMissions .[#C0392B,thickness=2].> Mission : TODO 3 new
+CompareMissions .[#C0392B,thickness=2].> Rover : TODO 3 new
+@enduml

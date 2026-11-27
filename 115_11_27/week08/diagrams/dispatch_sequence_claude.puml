@@ -1,0 +1,37 @@
+@startuml
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam sequenceParticipantBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+hide footbox
+title 一次探索的呼叫路徑（實際物件是 HeavyRover）
+
+participant "mission : Mission" as M
+participant "rover : <b>HeavyRover</b> 物件\n（欄位宣告型態 Rover）" as R
+
+M -> R : execute(1)
+activate R #F4F4F4
+note right of R : Rover.execute：未停止 → case 1
+R -> R : explore()
+activate R #F4F4F4
+note right of R : Rover 的 private explore
+R -> R : spendEnergy(6)
+note right of R : 能源 20 → 14
+R -> R : exploreYield()
+activate R #DFF3E3
+note right of R #DFF3E3
+  <b>依實際物件選版本</b>
+  HeavyRover 覆寫 → 回 3
+  （一般 Rover → 回 2）
+end note
+R --> R : 3
+deactivate R
+R -> R : addSamples(3)
+R -> R : countAction()
+R --> M : "成功"
+deactivate R
+deactivate R
+@enduml

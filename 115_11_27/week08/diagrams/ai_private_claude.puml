@@ -1,0 +1,40 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+skinparam backgroundColor #FFFFFF
+hide circle
+hide empty members
+title E 段：模擬 AI 的 private explore 為什麼沒被用到
+
+class Rover #F4F4F4 {
+  + execute(command : int) : String
+  - explore() : String  {addSamples(exploreYield())}
+  # exploreYield() : int  {回 2}
+}
+class "HeavyRover（模擬 AI 版）" as AiHeavy #FADBD8 {
+  + drill() : String
+  - explore() : String  {addSamples(3)}
+}
+class "HeavyRover（最小修正）" as FixHeavy #DFF3E3 {
+  + drill() : String
+  # exploreYield() : int  {@Override，回 3}
+}
+Rover <|-- AiHeavy
+Rover <|-- FixHeavy
+note bottom of AiHeavy
+  Rover.execute 呼叫的是 <b>Rover 自己的</b> private explore
+  子類別同名 private 方法是另一個方法，不是覆寫
+  → 探索仍得 2 份；加 @Override 會編譯失敗
+end note
+note bottom of FixHeavy
+  刪掉 private explore，
+  改覆寫 exploreYield()
+  → 父流程問產量時得到 3
+end note
+@enduml

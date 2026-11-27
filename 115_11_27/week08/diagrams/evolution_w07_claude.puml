@@ -1,0 +1,41 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+skinparam backgroundColor #FFFFFF
+hide circle
+hide empty members
+title 第七週（codex teacher）：HeavyRover 新增 drill，探索沿用父類別
+
+class Rover #F4F4F4 {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + execute(command : int) : String
+  # spendEnergy(amount : int) : boolean
+  # addSamples(amount : int) : void
+  # countAction() : void
+  - explore() : String  {addSamples(2)}
+}
+class HeavyRover #F4F4F4 {
+  - drillCount : int
+  + drill() : String  {耗 8 得 3}
+}
+class Mission #F4F4F4 {
+  - rover : Rover
+  + run(script : int[]) : void
+}
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+note right of Rover
+  <b>第七週留下的問題</b>
+  explore() 是 private，產量「2」寫死在裡面
+  → HeavyRover 用 execute(1) 探索也只得 2 份
+  → drill() 是<b>另一個</b>入口，沒有改變探索
+end note
+@enduml

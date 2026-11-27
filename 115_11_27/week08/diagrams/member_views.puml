@@ -1,0 +1,16 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Microsoft JhengHei
+skinparam defaultFontSize 20
+skinparam backgroundColor #FBFCFE
+hide circle
+left to right direction
+
+rectangle "bob : VipMember\n參考變數" as b
+rectangle "memberView : Member\n參考變數" as v
+rectangle "同一個 VipMember 物件\nMember宣告的points = 28\nVipMember宣告的bonusCount = 1" as o
+b --> o
+v --> o
+note bottom of o : describe使用VipMember版本
+@enduml

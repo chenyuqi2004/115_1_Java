@@ -1,0 +1,56 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+skinparam backgroundColor #FFFFFF
+hide circle
+hide empty members
+title 會員範例：第八週（左）比第七週（右）只多了一對 describe
+
+legend top right
+  <back:#DFF3E3>　本週新增的方法所在類別　</back>  <back:#F4F4F4>　與第七週相同　</back>
+endlegend
+
+package "第八週 examples" {
+  class "Member" as M8 #DFF3E3 {
+    - name : String
+    - points : int
+    <b>+ describe() : String</b>
+    + buy(price : int) : void
+    # addPoints(amount : int) : void
+  }
+  class "VipMember" as V8 #DFF3E3 {
+    - bonusCount : int
+    <b>+ describe() : String  {@Override}</b>
+    + claimBonus() : void
+  }
+  M8 <|-- V8
+}
+package "第七週 examples" {
+  class "Member" as M7 #F4F4F4 {
+    - name : String
+    - points : int
+    + getName() : String
+    + getPoints() : int
+    + buy(price : int) : void
+    # addPoints(amount : int) : void
+  }
+  class "VipMember" as V7 #F4F4F4 {
+    - bonusCount : int
+    + getBonusCount() : int
+    + claimBonus() : void
+  }
+  M7 <|-- V7
+}
+
+note bottom of V8
+  同名、同參數（無）、同回傳型態
+  → 子類別版本「覆寫」父類別版本
+  （getter 等其他成員省略）
+end note
+@enduml

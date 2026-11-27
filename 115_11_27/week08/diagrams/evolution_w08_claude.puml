@@ -1,0 +1,56 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft JhengHei"
+skinparam defaultFontSize 16
+skinparam shadowing false
+skinparam classBorderColor #555555
+skinparam noteBackgroundColor #FFFBEA
+skinparam noteBorderColor #B39B4D
+skinparam backgroundColor #FFFFFF
+hide circle
+hide empty members
+title 第八週（codex teacher）：完成 TODO 1–4 之後
+
+legend top right
+  <back:#DFF3E3>　新增　</back>  <back:#FFE8D6>　修改　</back>  <back:#F4F4F4>　與第七週相同　</back>
+endlegend
+
+class Rover #FFE8D6 {
+  - energy : int
+  - samples : int
+  - actionCount : int
+  + execute(command : int) : String
+  # spendEnergy(amount : int) : boolean
+  # addSamples(amount : int) : void
+  # countAction() : void
+  <b># exploreYield() : int  {新增，回 2}</b>
+  - explore() : String  {改呼叫 exploreYield()}
+}
+class HeavyRover #FFE8D6 {
+  - drillCount : int
+  + drill() : String  {不變}
+  <b># exploreYield() : int  {@Override，回 3}</b>
+  <b>+ execute(command : int) : String  {@Override，4 → drill}</b>
+}
+class CompareMissions #DFF3E3 {
+  + {static} main(args : String[]) : void
+  ~ {static} show(...) : void
+}
+class Mission #F4F4F4 {
+  - rover : Rover
+  + run(script : int[]) : void
+}
+class "MissionStep / MissionLog" as Same #F4F4F4
+
+Rover <|-- HeavyRover
+Mission --> "1" Rover : rover
+CompareMissions ..> Rover : new Rover\nnew HeavyRover
+CompareMissions ..> Mission : new ×2
+note bottom of Mission
+  Mission 的程式一行都沒改：
+  欄位仍是 Rover，
+  不需要知道 HeavyRover；
+  指令 4 也靠覆寫 execute 進入 drill
+end note
+@enduml
